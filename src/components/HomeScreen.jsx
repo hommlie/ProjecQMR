@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   Tag,
   ShoppingBag,
@@ -8,77 +8,207 @@ import {
   Flag,
   PhoneCall,
   Gift,
+  MapPin,
+  Mail,
+  Globe,
+  Clock,
+  MessageCircle,
+  ArrowRight,
+  Sparkles,   
 } from "lucide-react";
 
-/**
- * HomeScreen.jsx — minimal grid of 6 actions only
- * (No headers, sheets, footer, or extras.)
- * You can wire up onClick handlers later.
- */
+import "./HomeScreen.css";
 
 export default function HomeScreen() {
   const navigate = useNavigate?.() || ((path) => console.log("navigate:", path));
+  const reduceMotion = useReducedMotion();
 
   const actions = useMemo(
     () => [
-      { key: "offers",   title: "View Recent Offers",    subtitle: "Limited-time deals",     icon: Tag,            accent: "from-indigo-500 via-fuchsia-500 to-rose-500" },
-      { key: "book",     title: "Book New Services",     subtitle: "Pest control & more",   icon: ShoppingBag,    accent: "from-emerald-500 via-lime-500 to-cyan-500" },
-      { key: "feedback", title: "Give Feedback / Rating", subtitle: "Takes 30 seconds",       icon: MessageSquareHeart, accent: "from-amber-500 via-orange-500 to-pink-500" },
-      { key: "complaint",title: "Raise a Complaint",      subtitle: "We fix issues fast",     icon: Flag,           accent: "from-rose-500 via-red-500 to-orange-500" },
-      { key: "callback", title: "Request a Call Back",    subtitle: "Talk to a specialist",   icon: PhoneCall,      accent: "from-sky-500 via-blue-500 to-indigo-500" },
-      { key: "refer",    title: "Refer & Earn",           subtitle: "Invite & get rewards",   icon: Gift,           accent: "from-violet-500 via-purple-500 to-fuchsia-500" },
+      { key: "offers",   title: "View Recent Offers",     subtitle: "Limited-time deals",   icon: Tag },
+      { key: "book",     title: "Book New Services",      subtitle: "Pest control & more",  icon: ShoppingBag },
+      { key: "feedback", title: "Give Feedback / Rating", subtitle: "Takes 30 seconds",     icon: MessageSquareHeart },
+      { key: "complaint",title: "Raise a Complaint",      subtitle: "We fix issues fast",   icon: Flag },
+      { key: "callback", title: "Request a Call Back",    subtitle: "Talk to a specialist", icon: PhoneCall },
+      { key: "refer",    title: "Refer & Earn",           subtitle: "Invite & get rewards", icon: Gift },
     ],
     []
   );
 
   const container = {
     hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: reduceMotion ? 0 : 0.05, delayChildren: reduceMotion ? 0 : 0.05 },
+    },
   };
 
   const item = {
-    hidden: { opacity: 0, y: 16, scale: 0.98 },
-    show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 300, damping: 22 } },
+    hidden: { opacity: 0, y: reduceMotion ? 0 : 12 },
+    show:   { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
   };
 
-  const handleAction = (key) => {
-    // TODO: wire these up later
-    // example: if (key === 'book') navigate('/services');
-    console.log("clicked:", key);
+  const routeMap = {
+    offers: "/offers",
+    book: "/services",
+    feedback: "/feedback",
+    complaint: "/support/complaint",
+    callback: "/request-callback",
+    refer: "/refer",
   };
 
   return (
-    <main className="min-h-dvh w-full bg-gradient-to-b from-white to-slate-50 px-4 py-6 sm:px-6">
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="mx-auto grid max-w-lg grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3"
-      >
-        {actions.map(({ key, title, subtitle, icon: Icon, accent }) => (
-          <motion.button
-            key={key}
-            variants={item}
-            onClick={() => handleAction(key)}
-            className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-3 text-left shadow-sm transition-[transform,box-shadow] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 active:scale-[0.99]"
-            style={{ WebkitTapHighlightColor: "transparent" }}
-          >
-            {/* subtle gradient edge */}
-            <div className={`pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${accent} opacity-90`} />
-            <div className="flex items-start gap-3">
-              <div className={`rounded-2xl bg-gradient-to-tr ${accent} p-[2px] shadow-sm`}>
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white">
-                  <Icon className="h-5 w-5 text-slate-900" />
-                </div>
+    <main className="hs">
+      <div className="hs__container">
+        <header className="hs__header">
+          <div>
+            <h1 className="hs__title">Quick Actions</h1>
+            <p className="hs__subtitle">Everything you need, one tap away.</p>
+          </div>
+        </header>
+
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="hs__grid"
+        >
+          {actions.map(({ key, title, subtitle, icon: Icon }) => (
+            <motion.button
+              key={key}
+              variants={item}
+              onClick={() => navigate(routeMap[key] || "/")}
+              className="card"
+              aria-label={title}
+            >
+              <span className="card__edge" aria-hidden="true" />
+
+              <div className="card__body card__body--vertical">
+              <div className="card__icon card__icon--center">
+                <Icon className="icon" />
               </div>
-              <div className="min-w-0">
-                <h3 className="truncate text-[15px] font-semibold text-slate-900">{title}</h3>
-                <p className="mt-0.5 line-clamp-2 text-xs text-slate-500">{subtitle}</p>
+
+              <div className="card__text card__text--center">
+                <h3 className="card__title card__title--center">{title}</h3>
+                <p className="card__sub card__sub--center">{subtitle}</p>
               </div>
+
+              {/* Chevron now in normal flow */}
+              <svg className="chev chev--inline" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M7.5 5.5a1 1 0 0 1 1.4-1.4l5 5a1 1 0 0 1 0 1.4l-5 5A1 1 0 0 1 7.5 14.5L11.59 10 7.5 5.9z" />
+              </svg>
             </div>
-          </motion.button>
-        ))}
-      </motion.div>
+            </motion.button>
+          ))}
+        </motion.div>
+        <footer
+          className="hs__contact"
+          itemScope
+          itemType="https://schema.org/LocalBusiness"
+        >
+          <div className="hs__contact-head">
+            <h2 className="hs__contact-title">Contact Hommlie</h2>
+
+            <div className="hs__contact-badges">
+              <span className="badge badge--primary">
+                <Clock className="badge__icon" aria-hidden="true" />
+                9:00 AM – 9:00 PM (IST)
+              </span>
+              <span className="badge">
+                <Sparkles className="badge__icon" aria-hidden="true" />
+                Fast support
+              </span>
+            </div>
+          </div>
+
+          <div className="hs__contact-wrap">
+            {/* Left: Info */}
+            <ul className="hs__contact-list">
+              {/* <li className="hs__contact-item">
+                <MapPin className="ci__icon" aria-hidden="true" />
+                <span className="ci__text" itemProp="address">
+                  Nagendra Block, Banashankari 1st Stage, Banashankari
+                </span>
+              </li> */}
+
+              <li className="hs__contact-item">
+                <PhoneCall className="ci__icon" aria-hidden="true" />
+                <a className="ci__link" href="tel:+916363865658" itemProp="telephone">
+                  +91 63638 65658
+                </a>
+              </li>
+
+              <li className="hs__contact-item">
+                <MessageCircle className="ci__icon" aria-hidden="true" />
+                <a
+                  className="ci__link"
+                  href="https://wa.me/916363865658"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WhatsApp us
+                </a>
+              </li>
+
+              <li className="hs__contact-item">
+                <Mail className="ci__icon" aria-hidden="true" />
+                <a className="ci__link" href="mailto:reach@hommlie.com" itemProp="email">
+                  reach@hommlie.com
+                </a>
+              </li>
+
+              <li className="hs__contact-item">
+                <Globe className="ci__icon" aria-hidden="true" />
+                <a
+                  className="ci__link"
+                  href="https://www.hommlie.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  itemProp="url"
+                >
+                  www.hommlie.com
+                </a>
+              </li>
+            </ul>
+
+            {/* Right: CTAs */}
+            <div className="hs__contact-ctas">
+              <a className="btn btn--call" href="tel:+916363865658">
+                <PhoneCall className="btn__icon" aria-hidden="true" />
+                Call now
+                <ArrowRight className="btn__chev" aria-hidden="true" />
+              </a>
+
+              <a
+                className="btn btn--wa"
+                href="https://wa.me/916363865658?text=Hi%20Hommlie%2C%20I%27d%20like%20to%20book%20a%20service."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageCircle className="btn__icon" aria-hidden="true" />
+                Chat on WhatsApp
+                <ArrowRight className="btn__chev" aria-hidden="true" />
+              </a>
+
+              <a className="btn btn--mail" href="mailto:reach@hommlie.com">
+                <Mail className="btn__icon" aria-hidden="true" />
+                Email us
+                <ArrowRight className="btn__chev" aria-hidden="true" />
+              </a>
+
+              <a
+                className="btn btn--outline"
+                href="https://www.google.com/maps/search/?api=1&query=Hommlie%20Banashankari"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MapPin className="btn__icon" aria-hidden="true" />
+                Get directions
+              </a>
+            </div>
+          </div>
+        </footer>
+      </div>
     </main>
   );
 }
