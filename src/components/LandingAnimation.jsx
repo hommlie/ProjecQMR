@@ -88,6 +88,19 @@ const LandingAnimation = ({ onFinish }) => {
               Hommlie
             </motion.h1>
 
+            {/* <motion.img
+              src={require("../assets/logo.png")} // Adjust path if your assets folder is elsewhere
+              alt="Hommlie Logo"
+              style={{
+                width: "clamp(120px, 40vw, 300px)", // responsive size
+                height: "auto",
+                filter: "drop-shadow(0 0 20px rgba(255,255,255,0.6))",
+              }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.0, ease: "easeOut" }}
+            /> */}
+
             <motion.div
               style={{
                 width: "min(60vw, 520px)",
