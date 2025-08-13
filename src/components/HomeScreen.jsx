@@ -14,7 +14,7 @@ import {
   Clock,
   MessageCircle,
   ArrowRight,
-  Sparkles,   
+  Sparkles,
 } from "lucide-react";
 
 import "./HomeScreen.css";
@@ -82,25 +82,22 @@ export default function HomeScreen() {
               aria-label={title}
             >
               <span className="card__edge" aria-hidden="true" />
-
               <div className="card__body card__body--vertical">
-              <div className="card__icon card__icon--center">
-                <Icon className="icon" />
+                <div className="card__icon card__icon--center">
+                  <Icon className="icon" />
+                </div>
+                <div className="card__text card__text--center">
+                  <h3 className="card__title card__title--center">{title}</h3>
+                  <p className="card__sub card__sub--center">{subtitle}</p>
+                </div>
+                <svg className="chev chev--inline" viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M7.5 5.5a1 1 0 0 1 1.4-1.4l5 5a1 1 0 0 1 0 1.4l-5 5A1 1 0 0 1 7.5 14.5L11.59 10 7.5 5.9z" />
+                </svg>
               </div>
-
-              <div className="card__text card__text--center">
-                <h3 className="card__title card__title--center">{title}</h3>
-                <p className="card__sub card__sub--center">{subtitle}</p>
-              </div>
-
-              {/* Chevron now in normal flow */}
-              <svg className="chev chev--inline" viewBox="0 0 20 20" aria-hidden="true">
-                <path d="M7.5 5.5a1 1 0 0 1 1.4-1.4l5 5a1 1 0 0 1 0 1.4l-5 5A1 1 0 0 1 7.5 14.5L11.59 10 7.5 5.9z" />
-              </svg>
-            </div>
             </motion.button>
           ))}
         </motion.div>
+
         <footer
           className="hs__contact"
           itemScope
@@ -108,7 +105,6 @@ export default function HomeScreen() {
         >
           <div className="hs__contact-head">
             <h2 className="hs__contact-title">Contact Hommlie</h2>
-
             <div className="hs__contact-badges">
               <span className="badge badge--primary">
                 <Clock className="badge__icon" aria-hidden="true" />
@@ -122,59 +118,38 @@ export default function HomeScreen() {
           </div>
 
           <div className="hs__contact-wrap">
-            {/* Left: Info */}
+            {/* LEFT: Info list (optional). If you leave it empty, CTAs expand right-aligned automatically. */}
             <ul className="hs__contact-list">
-              {/* <li className="hs__contact-item">
+              {/* Example (uncomment to show):
+              <li className="hs__contact-item">
                 <MapPin className="ci__icon" aria-hidden="true" />
-                <span className="ci__text" itemProp="address">
-                  Nagendra Block, Banashankari 1st Stage, Banashankari
-                </span>
-              </li> */}
-
+                <span className="ci__text" itemProp="address">Nagendra Block, Banashankari 1st Stage, Banashankari</span>
+              </li>
               <li className="hs__contact-item">
                 <PhoneCall className="ci__icon" aria-hidden="true" />
-                <a className="ci__link" href="tel:+916363865658" itemProp="telephone">
-                  +91 63638 65658
-                </a>
+                <a className="ci__link" href="tel:+916363865658" itemProp="telephone">+91 63638 65658</a>
               </li>
-
               <li className="hs__contact-item">
                 <MessageCircle className="ci__icon" aria-hidden="true" />
-                <a
-                  className="ci__link"
-                  href="https://wa.me/916363865658"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  WhatsApp us
-                </a>
+                <a className="ci__link" href="https://wa.me/916363865658" target="_blank" rel="noopener noreferrer">WhatsApp us</a>
               </li>
-
               <li className="hs__contact-item">
                 <Mail className="ci__icon" aria-hidden="true" />
-                <a className="ci__link" href="mailto:reach@hommlie.com" itemProp="email">
-                  reach@hommlie.com
-                </a>
+                <a className="ci__link" href="mailto:reach@hommlie.com" itemProp="email">reach@hommlie.com</a>
               </li>
-
               <li className="hs__contact-item">
                 <Globe className="ci__icon" aria-hidden="true" />
-                <a
-                  className="ci__link"
-                  href="https://www.hommlie.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  itemProp="url"
-                >
+                <a className="ci__link" href="https://www.hommlie.com" target="_blank" rel="noopener noreferrer" itemProp="url">
                   www.hommlie.com
                 </a>
               </li>
+              */}
             </ul>
 
-            {/* Right: CTAs */}
+            {/* RIGHT: CTAs */}
             <div className="hs__contact-ctas">
               <a className="btn btn--call" href="tel:+916363865658">
-                <PhoneCall className="btn__icon" aria-hidden="true" />
+                <span className="btn__ico"><PhoneCall className="btn__icon" aria-hidden="true" /></span>
                 Call now
                 <ArrowRight className="btn__chev" aria-hidden="true" />
               </a>
@@ -185,13 +160,13 @@ export default function HomeScreen() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <MessageCircle className="btn__icon" aria-hidden="true" />
-                Chat on WhatsApp
+                <span className="btn__ico"><MessageCircle className="btn__icon" aria-hidden="true" /></span>
+                 WhatsApp Chat
                 <ArrowRight className="btn__chev" aria-hidden="true" />
               </a>
 
               <a className="btn btn--mail" href="mailto:reach@hommlie.com">
-                <Mail className="btn__icon" aria-hidden="true" />
+                <span className="btn__ico"><Mail className="btn__icon" aria-hidden="true" /></span>
                 Email us
                 <ArrowRight className="btn__chev" aria-hidden="true" />
               </a>
@@ -202,8 +177,20 @@ export default function HomeScreen() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <MapPin className="btn__icon" aria-hidden="true" />
+                <span className="btn__ico"><MapPin className="btn__icon" aria-hidden="true" /></span>
                 Get directions
+                <ArrowRight className="btn__chev" aria-hidden="true" />
+              </a>
+
+              <a
+                className="btn btn--web"
+                href="https://www.hommlie.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="btn__ico"><Globe className="btn__icon" aria-hidden="true" /></span>
+                Visit website
+                <ArrowRight className="btn__chev" aria-hidden="true" />
               </a>
             </div>
           </div>

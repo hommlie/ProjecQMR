@@ -1,13 +1,6 @@
-
 :root {
   --bg: #f7f8fb;
-  /* ✨ Elegant gradient for background */
-  --bg-grad: linear-gradient(
-    135deg,
-    #eef2ff 0%,   /* soft indigo tint */
-    #fdf4ff 35%,  /* light pink hue */
-    #f0fdfa 100%  /* minty fresh ending */
-  );
+  --bg-grad: linear-gradient(135deg,#eef2ff 0%,#fdf4ff 35%,#f0fdfa 100%);
   --text: #0f172a;
   --muted: #64748b;
   --card: #ffffff;
@@ -26,7 +19,6 @@
 }
 
 .hs__container { max-width: 1120px; margin: 0 auto; }
-
 
 .hs__header{
   display:flex; align-items:center; justify-content:space-between;
@@ -131,18 +123,10 @@
   color: var(--muted);
 }
 
-/* Chevron at bottom-right */
-.chev{
-  width:16px; height:16px;
-}
-.chev--bottom{
-  position: absolute;
-  right: 12px;
-  bottom: 10px;
-  color:#94a3b8;
-  transition: transform .2s ease, color .2s ease;
-}
-.card:hover .chev--bottom{ transform: translateX(2px); color:#475569; }
+/* Chevron */
+.chev{ width:16px; height:16px; }
+.chev--inline{ color:#94a3b8; margin-top: 2px; }
+.card:hover .chev--inline{ transform: translateX(2px); color:#475569; }
 
 /* Small screens */
 @media (max-width: 360px){
@@ -151,6 +135,7 @@
   .card__title--center{ font-size: 15px; }
 }
 
+/* ===== Contact block ===== */
 .hs__contact {
   margin-top: 28px;
   padding: 18px;
@@ -185,13 +170,26 @@
 }
 .badge__icon{ width:14px; height:14px; opacity:.9; }
 
-/* Layout */
+/* --- Layout fixes --- */
 .hs__contact-wrap{
   display:grid; gap: 16px;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr;                 /* 1 col by default */
+  align-items: center;
 }
-@media (min-width: 768px){
-  .hs__contact-wrap{ grid-template-columns: 1.2fr .8fr; gap: 18px; }
+
+@media (min-width: 1024px){
+  .hs__contact-wrap{
+    grid-template-columns: 1fr 540px;         /* left info | right CTAs */
+    gap: 20px;
+  }
+}
+
+/* If the info list is empty, hide it and let CTAs span & align right */
+.hs__contact-list:empty{ display:none; }
+.hs__contact-list:empty + .hs__contact-ctas{
+  grid-column: 1 / -1;
+  justify-self: end;
+  width: min(560px, 100%);
 }
 
 /* Info list */
@@ -205,39 +203,112 @@
 }
 .ci__link:hover{ text-decoration:underline; }
 
-/* CTAs */
+/* --- CTAs --- */
 .hs__contact-ctas{
-  display:grid; gap:10px;
-  grid-template-columns: 1fr 1fr;
+  display:grid; gap:12px;
+  grid-template-columns: 1fr;                 /* stacked on mobile */
 }
-@media (max-width: 420px){
-  .hs__contact-ctas{ grid-template-columns: 1fr; }
+@media (min-width: 640px){
+  .hs__contact-ctas{ grid-template-columns: 1fr 1fr; } /* 2×N on tablet+ */
 }
 
 .btn{
-  display:inline-flex; align-items:center; justify-content:center; gap:10px;
-  padding: 12px 12px; border-radius: 12px; font-weight: 700; font-size:14px;
-  border:1px solid var(--border); background:#fff; text-decoration:none; color:var(--text);
-  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+  display:inline-flex; align-items:center; gap:10px;
+  height:56px; padding: 0 14px;
+  border-radius: 14px;
+  font-weight: 700; font-size:14px;
+  border:1px solid var(--border);
+  background:#fff; color:var(--text);
   box-shadow: var(--shadow-sm);
+  text-decoration:none;
+  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
 }
 .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn:focus-visible{ outline:none; box-shadow: 0 0 0 3px rgba(99,102,241,.25); }
+
 .btn__icon{ width:18px; height:18px; }
+
+/* Icon halo */
+.btn__ico{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:28px; height:28px; border-radius:999px;
+  background:#f1f5f9;                        /* default halo */
+  flex:0 0 auto;
+}
 .btn__chev{ width:16px; height:16px; margin-left:auto; opacity:.9; }
 
-.btn--call{
-  background: linear-gradient(180deg, #eef2ff 0%, #ffffff 100%);
-  border-color:#c7d2fe;
+/* Button color chips */
+.btn--call{   background: linear-gradient(180deg,#eef2ff 0%,#ffffff 100%); border-color:#c7d2fe; }
+.btn--wa{     background: linear-gradient(180deg,#eafff3 0%,#ffffff 100%); border-color:#86efac; }
+.btn--mail{   background: linear-gradient(180deg,#fff7ed 0%,#ffffff 100%); border-color:#fcd34d; }
+.btn--outline{background:#ffffff; border-style:dashed; }
+.btn--web{    background: linear-gradient(180deg, #f5f3ff 0%, #ffffff 100%); border-color:#ddd6fe; }
+
+/* Halo tints per button */
+.btn--call   .btn__ico{ background: #eef2ff; }
+.btn--wa     .btn__ico{ background: #eafff3; }
+.btn--mail   .btn__ico{ background: #fff7ed; }
+.btn--outline.btn .btn__ico{ background:#f8fafc; }
+.btn--web    .btn__ico{ background: #f5f3ff; }
+
+
+/* Mobile & small screens: stacked or 2×N */
+.hs__contact-ctas {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr; /* stacked on mobile */
 }
-.btn--wa{
-  background: linear-gradient(180deg, #eafff3 0%, #ffffff 100%);
-  border-color:#86efac;
+
+@media (min-width: 640px) {
+  .hs__contact-ctas {
+    grid-template-columns: repeat(2, 1fr); /* 2×N on tablet */
+  }
 }
-.btn--mail{
-  background: linear-gradient(180deg, #fff7ed 0%, #ffffff 100%);
-  border-color:#fcd34d;
+
+/* Desktop: all buttons in one row */
+@media (min-width: 1024px) {
+  .hs__contact-ctas {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end; /* align right to match your screenshot */
+    flex-wrap: nowrap;
+    
+  }
+
+  .hs__contact-ctas .btn {
+    flex: 0 0 auto; /* prevent stretching */
+  }
 }
-.btn--outline{
-  background:#ffffff;
-  border-style:dashed;
+
+/* === Desktop: one straight line, equal widths, start at left === */
+@media (min-width: 1024px) {
+  /* Make the contact content a single row area so CTAs start under the title */
+  .hs__contact-wrap {
+    grid-template-columns: 1fr;   /* no right column on desktop */
+  }
+
+  /* When the info list is empty, let CTAs take full width and start at left */
+  .hs__contact-list:empty + .hs__contact-ctas {
+    grid-column: 1 / -1;
+    justify-self: stretch;        /* span full width */
+    width: 100%;
+    margin-left: 0;               /* ensure it starts at the left */
+  }
+
+  /* Horizontal CTA row */
+  .hs__contact-ctas {
+    display: flex;
+    gap: 14px;
+    justify-content: flex-start;  /* start from left */
+    align-items: stretch;
+    flex-wrap: nowrap;            /* keep in one line */
+    width: 100%;
+  }
+
+  /* Equal widths for all buttons */
+  .hs__contact-ctas .btn {
+    flex: 1 1 0;                  /* distribute evenly */
+    min-width: 0;                 /* allow flex calc to work cleanly */
+    height: 56px;                 /* consistent height already */
+  }
 }
