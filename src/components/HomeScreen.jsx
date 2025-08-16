@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import {
@@ -17,11 +17,13 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import OffersModal from "../components/OffersModal";
 import "./HomeScreen.css";
 
 export default function HomeScreen() {
   const navigate = useNavigate?.() || ((path) => console.log("navigate:", path));
   const reduceMotion = useReducedMotion();
+  const [offersOpen, setOffersOpen] = useState(false);
 
   const actions = useMemo(
     () => [
@@ -49,12 +51,25 @@ export default function HomeScreen() {
   };
 
   const routeMap = {
-    offers: "/offers",
-    book: "/services",
-    feedback: "/feedback",
-    complaint: "/support/complaint",
-    callback: "/request-callback",
+    book: "https://www.hommlie.com/services", // external
+    feedback: "https://www.google.com/maps/place/Hommlie+-+Best+Pest+Control+%26+Home+Services+in+Bangalore/@12.9434865,77.5528263,15.71z/data=!4m6!3m5!1s0x3bae3ffd65961b83:0x1a2fbd7cafae966c!8m2!3d12.9419479!4d77.5517609!16s%2Fg%2F11ldwmwf4t?entry=ttu&g_ep=EgoyMDI1MDgxMy4wIKXMDSoASAFQAw%3D%3D", // GMB review link (external)
+    complaint: "https://www.hommlie.com/my-bookings",
+    callback: "https://www.hommlie.com/contact-us",
     refer: "/refer",
+  };
+
+  const handleAction = (key) => {
+    if (key === "offers") {
+      setOffersOpen(true);
+      return;
+    }
+
+    const target = routeMap[key] || "/";
+    if (typeof target === "string" && target.startsWith("http")) {
+      window.open(target, "_blank", "noopener,noreferrer"); // open external in new tab
+    } else {
+      navigate(target); // internal route
+    }
   };
 
   return (
@@ -77,7 +92,7 @@ export default function HomeScreen() {
             <motion.button
               key={key}
               variants={item}
-              onClick={() => navigate(routeMap[key] || "/")}
+              onClick={() => handleAction(key)}
               className="card"
               aria-label={title}
             >
@@ -98,11 +113,8 @@ export default function HomeScreen() {
           ))}
         </motion.div>
 
-        <footer
-          className="hs__contact"
-          itemScope
-          itemType="https://schema.org/LocalBusiness"
-        >
+        {/* Contact footer */}
+        <footer className="hs__contact" itemScope itemType="https://schema.org/LocalBusiness">
           <div className="hs__contact-head">
             <h2 className="hs__contact-title">Contact Hommlie</h2>
             <div className="hs__contact-badges">
@@ -118,35 +130,8 @@ export default function HomeScreen() {
           </div>
 
           <div className="hs__contact-wrap">
-            {/* LEFT: Info list (optional). If you leave it empty, CTAs expand right-aligned automatically. */}
-            <ul className="hs__contact-list">
-              {/* Example (uncomment to show):
-              <li className="hs__contact-item">
-                <MapPin className="ci__icon" aria-hidden="true" />
-                <span className="ci__text" itemProp="address">Nagendra Block, Banashankari 1st Stage, Banashankari</span>
-              </li>
-              <li className="hs__contact-item">
-                <PhoneCall className="ci__icon" aria-hidden="true" />
-                <a className="ci__link" href="tel:+916363865658" itemProp="telephone">+91 63638 65658</a>
-              </li>
-              <li className="hs__contact-item">
-                <MessageCircle className="ci__icon" aria-hidden="true" />
-                <a className="ci__link" href="https://wa.me/916363865658" target="_blank" rel="noopener noreferrer">WhatsApp us</a>
-              </li>
-              <li className="hs__contact-item">
-                <Mail className="ci__icon" aria-hidden="true" />
-                <a className="ci__link" href="mailto:reach@hommlie.com" itemProp="email">reach@hommlie.com</a>
-              </li>
-              <li className="hs__contact-item">
-                <Globe className="ci__icon" aria-hidden="true" />
-                <a className="ci__link" href="https://www.hommlie.com" target="_blank" rel="noopener noreferrer" itemProp="url">
-                  www.hommlie.com
-                </a>
-              </li>
-              */}
-            </ul>
+            <ul className="hs__contact-list"></ul>
 
-            {/* RIGHT: CTAs */}
             <div className="hs__contact-ctas">
               <a className="btn btn--call" href="tel:+916363865658">
                 <span className="btn__ico"><PhoneCall className="btn__icon" aria-hidden="true" /></span>
@@ -161,7 +146,7 @@ export default function HomeScreen() {
                 rel="noopener noreferrer"
               >
                 <span className="btn__ico"><MessageCircle className="btn__icon" aria-hidden="true" /></span>
-                 WhatsApp Chat
+                WhatsApp Chat
                 <ArrowRight className="btn__chev" aria-hidden="true" />
               </a>
 
@@ -196,6 +181,9 @@ export default function HomeScreen() {
           </div>
         </footer>
       </div>
+
+      {/* Offers modal */}
+      <OffersModal open={offersOpen} onClose={() => setOffersOpen(false)} />
     </main>
   );
 }
