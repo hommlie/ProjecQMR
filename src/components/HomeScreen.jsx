@@ -20,6 +20,7 @@ import {
 import OffersModal from "../components/OffersModal";
 import "./HomeScreen.css";
 
+
 export default function HomeScreen() {
   const navigate = useNavigate?.() || ((path) => console.log("navigate:", path));
   const reduceMotion = useReducedMotion();
@@ -51,8 +52,8 @@ export default function HomeScreen() {
   };
 
   const routeMap = {
-    book: "https://www.hommlie.com/services", // external
-    feedback: "https://www.google.com/maps/place/Hommlie+-+Best+Pest+Control+%26+Home+Services+in+Bangalore/@12.9434865,77.5528263,15.71z/data=!4m6!3m5!1s0x3bae3ffd65961b83:0x1a2fbd7cafae966c!8m2!3d12.9419479!4d77.5517609!16s%2Fg%2F11ldwmwf4t?entry=ttu&g_ep=EgoyMDI1MDgxMy4wIKXMDSoASAFQAw%3D%3D", // GMB review link (external)
+    book: "https://www.hommlie.com/services",
+    feedback: "https://www.google.com/maps/place/Hommlie+-+Best+Pest+Control+%26+Home+Services+in+Bangalore/@12.9434865,77.5528263,15.71z/data=!4m6!3m5!1s0x3bae3ffd65961b83:0x1a2fbd7cafae966c!8m2!3d12.9419479!4d77.5517609!16s%2Fg%2F11ldwmwf4t",
     complaint: "https://www.hommlie.com/my-bookings",
     callback: "https://www.hommlie.com/contact-us",
     refer: "/refer",
@@ -66,9 +67,9 @@ export default function HomeScreen() {
 
     const target = routeMap[key] || "/";
     if (typeof target === "string" && target.startsWith("http")) {
-      window.open(target, "_blank", "noopener,noreferrer"); // open external in new tab
+      window.open(target, "_blank", "noopener,noreferrer");
     } else {
-      navigate(target); // internal route
+      navigate(target);
     }
   };
 
@@ -181,6 +182,16 @@ export default function HomeScreen() {
           </div>
         </footer>
       </div>
+
+      {/* Copyright footer at bottom */}
+      <footer className="roachx-footer">
+        <div className="footer-content">
+          <p>
+            © {new Date().getFullYear()} ADML TECHNOSERVICES PRIVATE LIMITED. All Rights Reserved. | 
+            Powered by Hommlie | Privacy Policy | Terms & Conditions
+          </p>
+        </div>
+      </footer>
 
       {/* Offers modal */}
       <OffersModal open={offersOpen} onClose={() => setOffersOpen(false)} />

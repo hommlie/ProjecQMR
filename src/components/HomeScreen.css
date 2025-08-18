@@ -601,3 +601,23 @@
   transform: scale(0.95);
 }
 
+.roachx-footer {
+  background: #f8f8f8; /* adjust color as needed */
+  padding: 10px 20px;
+  border-top: 1px solid #ddd;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* handles small screens */
+}
+
+.footer-content p {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+  line-height: 1.5;
+}
