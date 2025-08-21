@@ -1,15 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { X } from "lucide-react";
+import { X, Shield } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./OffersModal.css";
 
 const OFFERS = [
-  { id: "roachx",   label: "RoachX Gel Treatment",      price: "₹399*",  to: "/product/roachx-gel-treatment" },
-  { id: "gpc",      label: "General Pest Control",      price: "₹899*",  to: "/subcategory/general-pest-control" },
+  { id: "roachx",   label: "RoachX Gel Treatment",       price: "₹399*",  to: "/product/roachx-gel-treatment" },
+  { id: "gpc",      label: "General Pest Control",       price: "₹899*",  to: "/subcategory/general-pest-control" },
   { id: "std-cock", label: "Standard Cockroach Control", price: "₹999*",  to: "/subcategory/cockroach-control-services-in-bangalore" },
-  { id: "6d",       label: "6D Prime Cockroach",        price: "₹1199*", to: "/product/cockroach-control-services-in-bangalore" },
-  { id: "bb",       label: "Bedbugs Standard",          price: "₹2499*", to: "/subcategory/bed-bug-control-services-in-bangalore" },
+  { id: "6d",       label: "6D Prime Cockroach",         price: "₹1199*", to: "/product/cockroach-control-services-in-bangalore" },
+  { id: "bb",       label: "Bedbugs Standard",           price: "₹2499*", to: "/subcategory/bed-bug-control-services-in-bangalore" },
 ];
 
 export default function OffersModal({ open, onClose }) {
@@ -52,8 +52,9 @@ export default function OffersModal({ open, onClose }) {
             aria-modal="true"
             variants={modal}
           >
+            {/* Header */}
             <header className="om__header">
-              <h2>🔥 Limited Time Offers</h2>
+              <h2>🎉 Limited-Time Offers Just for You!</h2>
               <button
                 ref={firstFocusable}
                 className="om__close"
@@ -63,12 +64,17 @@ export default function OffersModal({ open, onClose }) {
                 <X size={22} />
               </button>
             </header>
+            <p className="om__sub">Book now before they expire!</p>
 
+            {/* Offers List */}
             <div className="om__content">
-              {OFFERS.map((offer, i) => (
+              {OFFERS.map((offer) => (
                 <div key={offer.id} className="om__row">
+                  <div className="om__left">
+                    <span className="om__pill">LIMITED</span>
+                    <Shield size={16} className="om__icon" />
+                  </div>
                   <div className="om__details">
-                    <span className="om__pill">Deal {i + 1}</span>
                     <span className="om__name">{offer.label}</span>
                     <span className="om__price">{offer.price}</span>
                   </div>

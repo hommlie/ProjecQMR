@@ -191,11 +191,11 @@ export default function HomeScreen() {
       </div>
 
       {/* Copyright footer at bottom */}
-      <footer className="roachx-footer">
+      <footer className="">
         <div className="footer-content">
           <p>
             © {new Date().getFullYear()} ADML TECHNOSERVICES PRIVATE LIMITED. All Rights Reserved. | 
-            Powered by Hommlie | Privacy Policy | Terms & Conditions
+            Powered by Hommlie.
           </p>
         </div>
       </footer>
