@@ -28,12 +28,13 @@ export default function HomeScreen() {
 
   const actions = useMemo(
     () => [
-      { key: "offers",   title: "View Recent Offers",     subtitle: "Limited-time deals",   icon: Tag },
-      { key: "book",     title: "Book New Services",      subtitle: "Pest control & more",  icon: ShoppingBag },
-      { key: "feedback", title: "Give Feedback / Rating", subtitle: "Takes 30 seconds",     icon: MessageSquareHeart },
       { key: "complaint",title: "Raise a Complaint",      subtitle: "We fix issues fast",   icon: Flag },
       { key: "callback", title: "Request a Call Back",    subtitle: "Talk to a specialist", icon: PhoneCall },
+      { key: "book",     title: "Book New Services",      subtitle: "Pest control & more",  icon: ShoppingBag },
       { key: "refer",    title: "Refer & Earn",           subtitle: "Invite & get rewards", icon: Gift },
+      { key: "offers",   title: "View Recent Offers",     subtitle: "Limited-time deals",   icon: Tag },
+      { key: "feedback", title: "Give Feedback / Rating", subtitle: "Takes 30 seconds",     icon: MessageSquareHeart },
+      
     ],
     []
   );
