@@ -484,3 +484,18 @@
     min-width: 0;
   }
 }
+
+/* Default */
+.icon--animated {
+  width: 28px;
+  height: 28px;
+  color: var(--text);
+}
+
+/* Action-specific colors */
+.card__icon--complaint .icon--animated { color: #ef4444; } /* red */
+.card__icon--callback .icon--animated { color: #3b82f6; } /* blue */
+.card__icon--book .icon--animated     { color: #10b981; } /* green */
+.card__icon--refer .icon--animated    { color: #f59e0b; } /* amber */
+.card__icon--offers .icon--animated   { color: #8b5cf6; } /* purple */
+.card__icon--feedback .icon--animated { color: #ec4899; } /* pink */

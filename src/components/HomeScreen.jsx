@@ -100,17 +100,13 @@ export default function HomeScreen() {
             >
               <span className="card__edge" aria-hidden="true" />
               <div className="card__body card__body--vertical">
-                <div className="card__icon card__icon--center">
+                <div className={`card__icon card__icon--center card__icon--${key}`}>
                   <motion.div
-                    animate={{ y: [0, -6, 0], scale: [1, 1.08, 1] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: Math.random() * 1.2, // ensures icons don't bounce together
-                    }}
+                    animate={{ y: [0, -6, 0], scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: Math.random() * 1.5 }}
+                    whileHover={{ scale: 1.2, rotate: 8 }}
                   >
-                    <Icon className="icon" />
+                    <Icon className="icon--animated" />
                   </motion.div>
                 </div>
                 <div className="card__text card__text--center">
