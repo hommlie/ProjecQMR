@@ -1,0 +1,142 @@
+/* Overlay */
+.refer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+  backdrop-filter: blur(2px);
+}
+
+/* Modal Box */
+.refer-modal {
+  background: #fff;
+  border-radius: 18px;
+  max-width: 480px;
+  width: 100%;
+  padding: 2rem 1.75rem 2.5rem;
+  position: relative;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+/* Header */
+.refer-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.refer-icon {
+  color: #ff9800;
+}
+
+.refer-title {
+  font-size: 1.7rem;
+  color: #222;
+  font-weight: 700;
+}
+
+/* Reward Highlight */
+.refer-reward {
+  background: linear-gradient(135deg, #e3f2ff, #f0f7ff);
+  border: 2px dashed #0066ff;
+  border-radius: 12px;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 1rem 0 1.5rem;
+  color: #0047b3;
+}
+
+.reward-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0066ff;
+}
+
+/* Description */
+.refer-text {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Note */
+.refer-note {
+  font-size: 0.9rem;
+  color: #777;
+  background: #fafafa;
+  border-left: 4px solid #ff9800;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+/* Close Button */
+.refer-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s;
+}
+
+.refer-close:hover {
+  color: #111;
+}
+
+/* CTA Button */
+.refer-btn {
+  display: inline-block;
+  background: #0066ff;
+  color: #fff;
+  padding: 0.9rem 1.6rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 5px 18px rgba(0,102,255,0.25);
+}
+
+.refer-btn:hover {
+  background: #0052cc;
+  box-shadow: 0 7px 22px rgba(0,102,255,0.35);
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .refer-modal {
+    padding: 1.5rem 1rem 2rem;
+  }
+  .refer-title {
+    font-size: 1.4rem;
+  }
+  .refer-reward {
+    font-size: 1.05rem;
+  }
+  .reward-amount {
+    font-size: 1.3rem;
+  }
+  .refer-text {
+    font-size: 0.95rem;
+  }
+  .refer-note {
+    font-size: 0.85rem;
+  }
+  .refer-btn {
+    width: 100%;
+    padding: 1rem;
+  }
+}

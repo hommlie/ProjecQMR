@@ -18,23 +18,23 @@ import {
 } from "lucide-react";
 
 import OffersModal from "../components/OffersModal";
+import ReferModal from "../components/ReferModal"; // ⬅️ Import Refer Modal
 import "./HomeScreen.css";
-
 
 export default function HomeScreen() {
   const navigate = useNavigate?.() || ((path) => console.log("navigate:", path));
   const reduceMotion = useReducedMotion();
   const [offersOpen, setOffersOpen] = useState(false);
+  const [referOpen, setReferOpen] = useState(false); // ⬅️ State for Refer modal
 
   const actions = useMemo(
     () => [
-      { key: "complaint",title: "Raise a Complaint",      subtitle: "We fix issues fast",   icon: Flag },
-      { key: "callback", title: "Request a Call Back",    subtitle: "Talk to a specialist", icon: PhoneCall },
-      { key: "book",     title: "Book New Services",      subtitle: "Pest control & more",  icon: ShoppingBag },
-      { key: "refer",    title: "Refer & Earn",           subtitle: "Invite & get rewards", icon: Gift },
-      { key: "offers",   title: "View Recent Offers",     subtitle: "Limited-time deals",   icon: Tag },
-      { key: "feedback", title: "Give Feedback / Rating", subtitle: "Takes 30 seconds",     icon: MessageSquareHeart },
-      
+      { key: "complaint", title: "Raise a Complaint", subtitle: "We fix issues fast", icon: Flag },
+      { key: "callback", title: "Request a Call Back", subtitle: "Talk to a specialist", icon: PhoneCall },
+      { key: "book", title: "Book New Services", subtitle: "Pest control & more", icon: ShoppingBag },
+      { key: "refer", title: "Refer & Earn", subtitle: "Invite & get rewards", icon: Gift },
+      { key: "offers", title: "View Recent Offers", subtitle: "Limited-time deals", icon: Tag },
+      { key: "feedback", title: "Give Feedback / Rating", subtitle: "Takes 30 seconds", icon: MessageSquareHeart },
     ],
     []
   );
@@ -49,20 +49,24 @@ export default function HomeScreen() {
 
   const item = {
     hidden: { opacity: 0, y: reduceMotion ? 0 : 12 },
-    show:   { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
+    show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
   };
 
   const routeMap = {
     book: "https://www.hommlie.com/services",
-    feedback: "https://www.google.com/maps/place/Hommlie+-+Best+Pest+Control+%26+Home+Services+in+Bangalore/@12.9434865,77.5528263,15.71z/data=!4m6!3m5!1s0x3bae3ffd65961b83:0x1a2fbd7cafae966c!8m2!3d12.9419479!4d77.5517609!16s%2Fg%2F11ldwmwf4t",
+    feedback:
+      "https://www.google.com/maps/place/Hommlie+-+Best+Pest+Control+%26+Home+Services+in+Bangalore/@12.9434865,77.5528263,15.71z/data=!4m6!3m5!1s0x3bae3ffd65961b83:0x1a2fbd7cafae966c!8m2!3d12.9419479!4d77.5517609!16s%2Fg%2F11ldwmwf4t",
     complaint: "https://www.hommlie.com/my-bookings",
     callback: "https://www.hommlie.com/contact-us",
-    refer: "/refer",
   };
 
   const handleAction = (key) => {
     if (key === "offers") {
       setOffersOpen(true);
+      return;
+    }
+    if (key === "refer") {
+      setReferOpen(true); // ⬅️ Open Refer modal
       return;
     }
 
@@ -77,6 +81,7 @@ export default function HomeScreen() {
   return (
     <main className="hs">
       <div className="hs__container">
+        {/* Header */}
         <header className="hs__header">
           <div>
             <h1 className="hs__title">Quick Actions</h1>
@@ -84,6 +89,7 @@ export default function HomeScreen() {
           </div>
         </header>
 
+        {/* Quick Action Cards */}
         <motion.div
           variants={container}
           initial="hidden"
@@ -121,7 +127,7 @@ export default function HomeScreen() {
           ))}
         </motion.div>
 
-        {/* Contact footer */}
+        {/* Contact Hommlie Section */}
         <footer className="hs__contact" itemScope itemType="https://schema.org/LocalBusiness">
           <div className="hs__contact-head">
             <h2 className="hs__contact-title">Contact Hommlie</h2>
@@ -138,8 +144,6 @@ export default function HomeScreen() {
           </div>
 
           <div className="hs__contact-wrap">
-            <ul className="hs__contact-list"></ul>
-
             <div className="hs__contact-ctas">
               <a className="btn btn--call" href="tel:+916363865658">
                 <span className="btn__ico"><PhoneCall className="btn__icon" aria-hidden="true" /></span>
@@ -190,18 +194,18 @@ export default function HomeScreen() {
         </footer>
       </div>
 
-      {/* Copyright footer at bottom */}
-      <footer className="">
+      {/* Copyright Footer */}
+      <footer className="roachx-footer">
         <div className="footer-content">
           <p>
-            © {new Date().getFullYear()} ADML TECHNOSERVICES PRIVATE LIMITED. All Rights Reserved. | 
-            Powered by Hommlie.
+            © {new Date().getFullYear()} ADML TECHNOSERVICES PRIVATE LIMITED. All Rights Reserved. | Powered by Hommlie.
           </p>
         </div>
       </footer>
 
-      {/* Offers modal */}
+      {/* Modals */}
       <OffersModal open={offersOpen} onClose={() => setOffersOpen(false)} />
+      <ReferModal open={referOpen} onClose={() => setReferOpen(false)} /> {/* ⬅️ Refer Modal */}
     </main>
   );
 }
