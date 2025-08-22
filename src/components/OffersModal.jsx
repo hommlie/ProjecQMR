@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { X, Shield } from "lucide-react";
+import { X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./OffersModal.css";
 
@@ -70,10 +70,6 @@ export default function OffersModal({ open, onClose }) {
             <div className="om__content">
               {OFFERS.map((offer) => (
                 <div key={offer.id} className="om__row">
-                  <div className="om__left">
-                    <span className="om__pill">LIMITED</span>
-                    <Shield size={16} className="om__icon" />
-                  </div>
                   <div className="om__details">
                     <span className="om__name">{offer.label}</span>
                     <span className="om__price">{offer.price}</span>
